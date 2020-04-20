@@ -44,6 +44,8 @@ interface IComposableFormProps<T> {
   onSave?: () => void;
   onClear?: () => void;
   onFocus?: (inputField?: TextInput) => void;
+  onBlur?: (inputField?: TextInput) => void;
+  onEndEditing?: (inputField?: TextInput) => void;
   loadingMapper?: {
     [id: string]: boolean;
   };
@@ -659,6 +661,16 @@ export default class ComposableForm<T extends ComposableItem> extends Component<
           this.setState({
             isFocusingMultiline: false
           });
+        }}
+        onBlurLabel={() => {
+          if (this.props.onBlur) {
+            this.props.onBlur(this.fieldRefs[field.id]);
+          }
+        }}
+        onEndEditing={() => {
+          if (this.props.onEndEditing) {
+            this.props.onEndEditing(this.fieldRefs[field.id]);
+          }
         }}
         onTouchStart={() => {
           if (field.multiline) {

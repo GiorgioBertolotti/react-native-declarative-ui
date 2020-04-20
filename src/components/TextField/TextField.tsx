@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleProp, StyleSheet, Text, TextInput, TextInputProperties, TextStyle, View, ViewStyle } from 'react-native';
+import { Platform, StyleProp, StyleSheet, Text, TextInput, TextInputProperties, TextStyle, View, ViewStyle, NativeSyntheticEvent, TextInputFocusEventData, TextInputEndEditingEventData } from 'react-native';
 import { FloatingLabel } from '../../base/FloatingLabel';
 import { LoaderIcon } from '../../base/icons/LoaderIcon';
 import { Colors } from '../../styles/colors';
@@ -8,8 +8,9 @@ import { globalStyles } from '../../styles/globalStyles';
 export interface ITextFieldProps extends TextInputProperties {
   onRef?: (input: TextInput) => void;
   label: string;
-  onFocusLabel?: () => void;
-  onBlurLabel?: () => void;
+  onFocusLabel?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onBlurLabel?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
   containerStyle?: StyleProp<ViewStyle>;
   inputStyle?: StyleProp<ViewStyle>;
   placeholderStyle?: StyleProp<TextStyle>;
@@ -124,7 +125,7 @@ export default class TextField extends React.Component<ITextFieldProps, State> {
               fontSize: 17,
               top: Platform.select({ ios: 0, android: -2 })
             }}
-            onFocusLabel={() => {
+            onFocusLabel={(e) => {
               if (!this.state.isFocused) {
                 this.setState({
                   isFocused: true
@@ -132,16 +133,21 @@ export default class TextField extends React.Component<ITextFieldProps, State> {
               }
 
               if (this.props.onFocusLabel) {
-                this.props.onFocusLabel();
+                this.props.onFocusLabel(e);
               }
             }}
-            onBlurLabel={() => {
+            onBlurLabel={(e) => {
               if (this.state.isFocused) {
                 this.setState({ isFocused: false });
               }
 
               if (this.props.onBlurLabel) {
-                this.props.onBlurLabel();
+                this.props.onBlurLabel(e);
+              }
+            }}
+            onEndEditing={(e) => {
+              if (this.props.onEndEditing) {
+                this.props.onEndEditing(e);
               }
             }}
           >

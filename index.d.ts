@@ -18,6 +18,8 @@ declare module 'react-native-declarative-ui' {
     onSave?: () => void;
     onClear?: () => void;
     onFocus?: (input: TextInput) => void;
+    onBlur?: (input?: TextInput) => void;
+    onEndEditing?: (input?: TextInput) => void;
     onFormFilled: (isFilled: boolean) => void;
     navigation: StackNavigationProp<NavigationRoute<NavigationParams>, NavigationParams>;
     backgroundColor?: string;
@@ -59,7 +61,7 @@ declare module 'react-native-declarative-ui' {
       errorFloatingLabelColor?: string;
       disabledFloatingLabelColor?: string;
       color?: string;
-      descriptionColor?:string;
+      descriptionColor?: string;
       disabledColor?: string;
       borderColor?: string;
       focusedBorderColor?: string;

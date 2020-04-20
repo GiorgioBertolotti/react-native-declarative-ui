@@ -25,6 +25,7 @@ interface IFloatingLabelProps extends TextInputProperties {
   style?: StyleProp<ViewStyle>;
   onFocusLabel?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onBlurLabel?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  onEndEditing?: (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void;
   isMandatory?: boolean;
 }
 
@@ -140,7 +141,6 @@ export default class FloatingLabel extends PureComponent<IFloatingLabelProps, IS
     const {
       children,
       style,
-      onFocus,
       onBlur,
       onFocusLabel,
       onBlurLabel,
